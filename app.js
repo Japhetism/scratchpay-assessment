@@ -6,6 +6,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const hpp = require('hpp');
 
+const clinicRoutes = require('./routes/clinicRoutes');
 const globalErrorHandler = require('./controllers/errorController');
 const AppError = require('./utils/appError');
 
@@ -40,6 +41,7 @@ app.use(xss());
 app.use(hpp());
 
 // Routes
+app.use('/api/v1', clinicRoutes);
 
 // Handle unexisiting routes
 app.use('*', (req, res, next) => {
