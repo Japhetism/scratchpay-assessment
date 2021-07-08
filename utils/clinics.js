@@ -6,7 +6,7 @@ exports.find = async () => {
     const vetClinics = await VetClinics.getVetClinics();
     const dentalClinics = await DentalClinics.getDentalClinics();
 
-    const clinics = [...vetClinics, ...dentalClinics];
+    const clinics = [...dentalClinics, ...vetClinics];
 
     return clinics;
 }
