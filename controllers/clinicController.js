@@ -1,12 +1,12 @@
 const Clinics = require('../utils/clinics');
-const Helper = require('../utils/helper');
 
 exports.getClinics = async (req, res, next) => {
-    
     try {
         res.status(process.env.HTTP_OK_STATUS_CODE).json({
             status: process.env.SUCCESS_STATUS,
-            data: Helper.paginate(await Clinics.find(), req)
+            responseData: await Clinics.find(req),
+            message: process.env.SUCCESS_MESSAGE,
+            responseCode: process.env.SUCCESS_RESPONSE_CODE
         })
     } catch (error) {
         next(error);
