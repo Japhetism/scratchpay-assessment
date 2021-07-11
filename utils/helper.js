@@ -1,5 +1,6 @@
 const { calculateLimitAndOffset, paginate } = require('paginate-info');
 const States = require('../fixtures/states');
+const StateConstant = require('../constants/state');
 
 exports.paginate = (doc, req) => {
     const { query: { currentPage, pageSize } } = req;
@@ -17,8 +18,8 @@ exports.filterBy = (doc, req) => {
     const {query: { name, state, availabilityFrom, availabilityTo } } = req;
     const filteredDoc = doc
         .filter(item => name ? item.name.toLowerCase() === name.toLowerCase() : item)
-        .filter(item => state && state.length > 2 ? item.state.toLowerCase() === state.toLowerCase() : item)
-        .filter(item => state && state.length == 2 ? item.stateCode.toLowerCase() === state.toLowerCase() : item)
+        .filter(item => state && state.length > StateConstant.STATE_CODE_LENGTH ? item.state.toLowerCase() === state.toLowerCase() : item)
+        .filter(item => state && state.length == StateConstant.STATE_CODE_LENGTH ? item.stateCode.toLowerCase() === state.toLowerCase() : item)
         .filter(item => availabilityFrom && availabilityTo ? item.availability.from >= availabilityFrom && item.availability.to <= availabilityTo : item)
     
         return this.paginate(filteredDoc, req)
