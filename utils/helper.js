@@ -15,17 +15,8 @@ exports.paginate = (doc, req) => {
 
 exports.filterBy = (doc, req) => {
     const {query: { name, state } } = req;
-    const filters = {name, stateName: state}
-    console.log(filters)
-    doc = doc.filter(function(item) {
-        for (let key in filters) {
-            // if (item[key] != filters[key]) {
-            //    return false;
-            // }
-            return true
-        }
-    })
-    return this.paginate(doc, req)
+    const filteredDoc = doc.filter(item => name ? item.name === name : item)
+    return this.paginate(filteredDoc, req)
 }
 
 exports.serializeClinics = (doc, clinicProvider) => {
