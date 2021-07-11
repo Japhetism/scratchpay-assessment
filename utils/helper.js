@@ -43,12 +43,12 @@ exports.serializeClinics = (doc, clinicProvider) => {
 
 exports.getStateName = (stateCode) => {
     if(stateCode) {
-        return States.getStates().filter(state => state.abbreviation === stateCode)[0].name;
+        return States.getStates().filter(state => state.code === stateCode)[0].name;
     }
 }
 
 exports.getStateCode = (stateName) => {
     if(stateName) {
-        return States.getStates().filter(state => state.name === stateName)[0].abbreviation;
+        return States.getStates().filter(state => state.name === stateName)[0].code;
     }
 }
