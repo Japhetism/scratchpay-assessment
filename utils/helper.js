@@ -15,7 +15,9 @@ exports.paginate = (doc, req) => {
 
 exports.filterBy = (doc, req) => {
     const {query: { name, state } } = req;
-    const filteredDoc = doc.filter(item => name ? item.name === name : item)
+    const filteredDoc = doc
+        .filter(item => name ? item.name === name : item)
+        .filter(item => state ? item.state === state : item)
     return this.paginate(filteredDoc, req)
 }
 
