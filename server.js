@@ -10,12 +10,12 @@ process.on('uncaughtException', err => {
     process.exit(1);
 });
 
-const app = require('./app');
+const server = require('./app');
 
 // Start the server
 const port = process.env.PORT;
 const hostName = process.env.HOSTNAME;
-app.listen(port, hostName, () => {
+server.listen(port, hostName, () => {
     console.log(`Server running at http://${hostName}:${port}/`);
 });
 
@@ -23,3 +23,5 @@ process.on('unhandledRejection', err => {
     console.log('UNHANDLED REJECTION!!! shutting down...');
     console.log(err.name, err.message);
 });
+
+module.exports = server;
