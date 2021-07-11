@@ -38,3 +38,9 @@ The query parameters for the endpoint are;
 API documentation can be found on 
 [http://localhost:9000/api/docs](http://localhost:9000/api/docs).
 
+This project used mocha and chai test suite.
+
+In the project directory, you can run the test with:
+
+### `yarn test`
+
