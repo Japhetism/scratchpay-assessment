@@ -1,4 +1,5 @@
 const { calculateLimitAndOffset, paginate } = require('paginate-info');
+const States = require('../fixtures/states');
 
 exports.paginate = (doc, req) => {
     const { query: { currentPage, pageSize } } = req;
@@ -15,13 +16,39 @@ exports.paginate = (doc, req) => {
 exports.filterBy = (doc, req) => {
     const {query: { name, state } } = req;
     const filters = {name, stateName: state}
+    console.log(filters)
     doc = doc.filter(function(item) {
         for (let key in filters) {
-            if (item[key] != filters[key]) {
-               return false;
-            }
+            // if (item[key] != filters[key]) {
+            //    return false;
+            // }
             return true
         }
     })
     return this.paginate(doc, req)
+}
+
+exports.serializeClinics = (doc, clinicProvider) => {
+    return doc.map(item => { 
+        
+        return {
+            provider: clinicProvider,
+            name: item.name || item.clinicName,
+            state: item.stateName || this.getStateName(item.stateCode),
+            stateCode: this.getStateCode(item.stateName) || item.stateCode,
+            availability: item.availability || item.opening
+        } 
+    })
+}
+
+exports.getStateName = (stateCode) => {
+    if(stateCode) {
+        return States.getStates().filter(state => state.abbreviation === stateCode)[0].name;
+    }
+}
+
+exports.getStateCode = (stateName) => {
+    if(stateName) {
+        return States.getStates().filter(state => state.name === stateName)[0].abbreviation;
+    }
 }
