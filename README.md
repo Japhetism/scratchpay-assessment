@@ -27,12 +27,12 @@ Runs the app in the development mode.
 Server will be running on [http://0.0.0.0:9000](http://0.0.0.0:9000).
 
 This project has one endpoint that can be use to get all clinics and search for clinics
-The endpoint is [http://0.0.0.0:9000/api/v1/clinics][http://0.0.0.0:9000/api/v1/clinics]
+The endpoint is [http://0.0.0.0:9000/api/v1/clinics](http://0.0.0.0:9000/api/v1/clinics).
 
 The query parameters for the endpoint are;
-name [ex: "Good Health Home"]
-state [ex: "CA" or "California"]
-availabilityFrom [ex: 09:00]
+name [ex: "Good Health Home"]\
+state [ex: "CA" or "California"]\
+availabilityFrom [ex: 09:00]\
 availabilityTo [ex: 20:00]
 
 API documentation can be found on 
