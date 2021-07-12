@@ -1,6 +1,10 @@
 const { calculateLimitAndOffset, paginate } = require('paginate-info');
 const States = require('../fixtures/states');
 const StateConstant = require('../constants/state');
+const NodeCache = require( "node-cache" );
+const myCache = new NodeCache( { stdTTL: 100000, checkperiod: 120 } );
+//new NodeCache( { stdTTL: 100, checkperiod: 120 } );
+//const myCache = new NodeCache();
 
 exports.paginate = (doc, req) => {
     const { query: { currentPage, pageSize } } = req;
@@ -48,4 +52,12 @@ exports.getStateCode = (stateName) => {
     if(stateName) {
         return States.getStates().filter(state => state.name === stateName)[0].code;
     }
+}
+
+exports.setCache = (type, doc) => {
+    return success = myCache.set( type, doc, 10000 );
+}
+
+exports.getCache = (type) => {
+    return value = myCache.get(type);
 }
