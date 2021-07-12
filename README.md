@@ -36,7 +36,7 @@ The query parameters for the endpoint are;
 - availabilityTo [ex: 20:00]
 
 API documentation can be found on 
-[http://localhost:9000/api/docs](http://localhost:9000/api/docs).
+[http://localhost:9000/api-docs](http://localhost:9000/api-docs).
 
 This project used mocha and chai test suite.
 
