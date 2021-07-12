@@ -2,9 +2,7 @@ const { calculateLimitAndOffset, paginate } = require('paginate-info');
 const States = require('../fixtures/states');
 const StateConstant = require('../constants/state');
 const NodeCache = require( "node-cache" );
-const myCache = new NodeCache( { stdTTL: 100000, checkperiod: 120 } );
-//new NodeCache( { stdTTL: 100, checkperiod: 120 } );
-//const myCache = new NodeCache();
+const myCache = new NodeCache( { stdTTL: 3600, checkperiod: 120 } );
 
 exports.paginate = (doc, req) => {
     const { query: { currentPage, pageSize } } = req;
@@ -24,6 +22,7 @@ exports.filterBy = (doc, req) => {
         .filter(item => name ? item.name.toLowerCase() === name.toLowerCase() : item)
         .filter(item => state && state.length > StateConstant.STATE_CODE_LENGTH ? item.state.toLowerCase() === state.toLowerCase() : item)
         .filter(item => state && state.length == StateConstant.STATE_CODE_LENGTH ? item.stateCode.toLowerCase() === state.toLowerCase() : item)
+        .filter(item => availabilityFrom ? item.availability.from >= availabilityFrom : item)
         .filter(item => availabilityFrom && availabilityTo ? item.availability.from >= availabilityFrom && item.availability.to <= availabilityTo : item)
     
         return this.paginate(filteredDoc, req)
