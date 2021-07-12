@@ -2,7 +2,7 @@ const { calculateLimitAndOffset, paginate } = require('paginate-info');
 const States = require('../fixtures/states');
 const StateConstant = require('../constants/state');
 const NodeCache = require( "node-cache" );
-const myCache = new NodeCache( { stdTTL: 3600, checkperiod: 120 } );
+const myCache = new NodeCache( { stdTTL: process.env.CACHE_TTL } );
 
 exports.paginate = (doc, req) => {
     const { query: { currentPage, pageSize } } = req;
