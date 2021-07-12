@@ -21,13 +21,33 @@ exports.paginate = (doc, req) => {
 exports.filterBy = (doc, req) => {
     const {query: { name, state, availabilityFrom, availabilityTo } } = req;
     const filteredDoc = doc
-        .filter(item => name ? item.name.toLowerCase() === name.toLowerCase() : item)
+        .filter(item => {
+            if (name) {
+                let data = item.name;
+                let dataWords = typeof data === "string" && data?.split(" ")?.map(b => b && b.toLowerCase().trim()).filter(b => b)
+                let searchWords = typeof name === "string" && name?.split(" ").map(b => b && b.toLowerCase().trim()).filter(b => b)
+                let matchingWords = searchWords.filter(word => dataWords.includes(word))
+                return matchingWords.length
+            } else {
+                return item
+            }
+        })
         .filter(item => state && state.length > StateConstant.STATE_CODE_LENGTH ? item.state.toLowerCase() === state.toLowerCase() : item)
         .filter(item => state && state.length == StateConstant.STATE_CODE_LENGTH ? item.stateCode.toLowerCase() === state.toLowerCase() : item)
         .filter(item => availabilityFrom ? item.availability.from >= availabilityFrom : item)
         .filter(item => availabilityFrom && availabilityTo ? item.availability.from >= availabilityFrom && item.availability.to <= availabilityTo : item)
     
         return this.paginate(filteredDoc, req)
+}
+
+exports.filterByMatchingWords = (doc, filter) => {
+    return doc.filter(item => {
+        let data = item.name;
+        let dataWords = typeof data === "string" && data?.split(" ")?.map(b => b && b.toLowerCase().trim()).filter(b => b)
+        let searchWords = typeof filter === "string" && filter?.split(" ").map(b => b && b.toLowerCase().trim()).filter(b => b)
+        let matchingWords = searchWords.filter(word => dataWords.includes(word))
+        return matchingWords.length
+    })
 }
 
 // Serialize the default clinic payload to a uniform payload
