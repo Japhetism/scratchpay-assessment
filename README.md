@@ -45,7 +45,7 @@ Pagination was implemented incase of large datasets.
 ## Clinic Query Params
 
 The query parameters for the endpoint are;
-- name [ex: "Good Health Home"]
+- name [ex: "Good Health Home" or "Health"]
 - state [ex: "CA" or "California"]
 - availabilityFrom [ex: 09:00]
 - availabilityTo [ex: 20:00]
