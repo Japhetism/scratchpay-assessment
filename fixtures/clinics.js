@@ -1,6 +1,6 @@
 const fetch = require('node-fetch');
 
-// Get dental clinics from dental clinics 
+// Get clinics from dental clinics 
 exports.getDentalClinics = async () => {
     
     const url = process.env.DENTAL_CLINICS_URL;
@@ -16,7 +16,7 @@ exports.getDentalClinics = async () => {
 
 }
 
-// Get vet clinics from vet clinic url
+// Get clinics from vet clinic url
 exports.getVetClinics = () => {
     
     const url = process.env.VET_CLINICS_URL;
