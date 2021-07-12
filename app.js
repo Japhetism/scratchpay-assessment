@@ -6,8 +6,13 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const hpp = require('hpp');
 
+const swaggerUi = require('swagger-ui-express'),
+swaggerDocument = require('./swagger.json');
+
+const clinicRoutes = require('./routes/clinicRoutes');
 const globalErrorHandler = require('./controllers/errorController');
 const AppError = require('./utils/appError');
+
 
 const app = express();
 
@@ -25,8 +30,8 @@ const limiter = rateLimit({
 });
 app.use('/api', limiter);
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Body parser, reading data from body to req
 app.use(express.json({
@@ -39,7 +44,11 @@ app.use(xss());
 // Prevent parameter pollution
 app.use(hpp());
 
+// Swagger
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 // Routes
+app.use('/api/v1', clinicRoutes);
 
 // Handle unexisiting routes
 app.use('*', (req, res, next) => {
