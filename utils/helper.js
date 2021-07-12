@@ -40,16 +40,6 @@ exports.filterBy = (doc, req) => {
         return this.paginate(filteredDoc, req)
 }
 
-exports.filterByMatchingWords = (doc, filter) => {
-    return doc.filter(item => {
-        let data = item.name;
-        let dataWords = typeof data === "string" && data?.split(" ")?.map(b => b && b.toLowerCase().trim()).filter(b => b)
-        let searchWords = typeof filter === "string" && filter?.split(" ").map(b => b && b.toLowerCase().trim()).filter(b => b)
-        let matchingWords = searchWords.filter(word => dataWords.includes(word))
-        return matchingWords.length
-    })
-}
-
 // Serialize the default clinic payload to a uniform payload
 exports.serializeClinics = (doc, clinicProvider) => {
     return doc.map(item => { 
