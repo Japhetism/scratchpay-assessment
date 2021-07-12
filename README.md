@@ -51,6 +51,7 @@ The query parameters for the endpoint are;
 - availabilityTo [ex: 20:00]
 - currentPage [ex: 1]
 - pageSize [ex: 5]
+These query parameters are optional, user must supply availabilityFrom when availabilityTo is not null.
 
 ## API Documentation 
 
