@@ -4,6 +4,7 @@ const StateConstant = require('../constants/state');
 const NodeCache = require( "node-cache" );
 const myCache = new NodeCache( { stdTTL: process.env.CACHE_TTL } );
 
+// Paginate the clinics payload with default page size of 10
 exports.paginate = (doc, req) => {
     const { query: { currentPage, pageSize } } = req;
     const { limit, offset } = calculateLimitAndOffset(currentPage, pageSize ? pageSize : process.env.DEFAULT_PAGE_SIZE);
@@ -16,6 +17,7 @@ exports.paginate = (doc, req) => {
     }
 }
 
+// Filter the clinics based on the query params
 exports.filterBy = (doc, req) => {
     const {query: { name, state, availabilityFrom, availabilityTo } } = req;
     const filteredDoc = doc
@@ -28,6 +30,7 @@ exports.filterBy = (doc, req) => {
         return this.paginate(filteredDoc, req)
 }
 
+// Serialize the default clinic payload to a uniform payload
 exports.serializeClinics = (doc, clinicProvider) => {
     return doc.map(item => { 
         
@@ -41,22 +44,26 @@ exports.serializeClinics = (doc, clinicProvider) => {
     })
 }
 
+// Get state name for a given state code
 exports.getStateName = (stateCode) => {
     if(stateCode) {
         return States.getStates().filter(state => state.code === stateCode)[0].name;
     }
 }
 
+// Get state code for a given state name
 exports.getStateCode = (stateName) => {
     if(stateName) {
         return States.getStates().filter(state => state.name === stateName)[0].code;
     }
 }
 
+// Cache payload to increase response time
 exports.setCache = (type, doc) => {
-    return success = myCache.set( type, doc, 10000 );
+    return success = myCache.set(type, doc);
 }
 
+// Retrieve the cached payload
 exports.getCache = (type) => {
     return value = myCache.get(type);
 }

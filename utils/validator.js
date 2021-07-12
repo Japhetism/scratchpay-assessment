@@ -1,5 +1,6 @@
 const Joi = require('joi');
 
+// Query params validation schema
 exports.validateClinicQueryParams = (req) => {
     const schema = Joi.object().keys({
         name: Joi.string().min(2),

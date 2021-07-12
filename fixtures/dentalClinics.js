@@ -1,5 +1,6 @@
 const fetch = require('node-fetch');
 
+// Get dental clinics from dental clinics 
 exports.getDentalClinics = async () => {
     
     const url = process.env.DENTAL_CLINICS_URL;

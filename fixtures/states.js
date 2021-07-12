@@ -1,3 +1,4 @@
+// Get US states with state name and code
 exports.getStates = () => {
     return states;
 }

@@ -2,6 +2,7 @@ const Clinics = require('../utils/clinics');
 const Validator = require('../utils/validator');
 const AppError = require('../utils/appError');
 
+// Clinic controller for get clinics route
 exports.getClinics = async (req, res, next) => {
     
     const validation = Validator.validateClinicQueryParams(req);
