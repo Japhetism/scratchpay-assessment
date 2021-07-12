@@ -31,13 +31,16 @@ The endpoint is [http://0.0.0.0:9000/api/v1/clinics](http://0.0.0.0:9000/api/v1/
 
 ## Clinic Responses
 
-The clinic response payload from the endpoint is modified to have uniform responses irrespective of the clinic,
+The clinic response payload from the endpoint is modified to have uniform responses irrespective of the clinic provider,
 the clinic response has the following entities;
 - provider: the clinic provider name [ex: "Dental Clinic" or "Vet Clinic"]
 - name: the clinic name [ex: "Good Health Home"]
 - state: the state location of the clinic [ex: "California"]
 - stateCode: the state code location of the clinic [ex: "CA"]
 - availability: the opening and closing time of the clinic [ex: from: 09:00, to: 20:00]
+
+The clinics response payload is default to page size of 10. 
+Pagination was implemented incase of large datasets.
 
 ## Clinic Query Params
 
@@ -46,6 +49,8 @@ The query parameters for the endpoint are;
 - state [ex: "CA" or "California"]
 - availabilityFrom [ex: 09:00]
 - availabilityTo [ex: 20:00]
+- currentPage [ex: 1]
+- pageSize [ex: 5]
 
 ## API Documentation 
 
